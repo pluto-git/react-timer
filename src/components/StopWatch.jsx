@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import classes from "./StopWatch.module.css";
 
 const StopWatch = () => {
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(0);
   const countRef = useRef(null);
+  //click handling state
+  const [clickCounter, setClickCounter] = useState(0);
 
   // preventing form from submission
   const submitHandler = (event) => {
@@ -39,6 +41,21 @@ const StopWatch = () => {
     setIsActive((prevBool) => !prevBool);
 
     startHandler();
+  };
+
+  //handling Double Click
+  const clickCounterHandler = () => {
+    setClickCounter((prevNumber) => prevNumber + 1);
+
+    //as state is not updated immediately for the next line
+    if (clickCounter === 1) {
+      waitHandler();
+    }
+
+    let timer;
+    timer = setTimeout(() => {
+      setClickCounter(0);
+    }, 299);
   };
 
   //formatting Time
@@ -79,7 +96,7 @@ const StopWatch = () => {
         <button
           type="button"
           className="btn btn-outline-secondary"
-          onClick={waitHandler}
+          onClick={clickCounterHandler}
         >
           Wait
         </button>
