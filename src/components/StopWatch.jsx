@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import classes from "./StopWatch.module.css";
-import { timer, interval } from "rxjs";
+import { timer } from "rxjs";
 
 const StopWatch = () => {
   const [isActive, setIsActive] = useState(false);
